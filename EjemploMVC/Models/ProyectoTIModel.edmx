@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProyectoTIModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ProyectoTIModelStoreContainer">
+    <EntitySet Name="Comentarios" EntityType="ProyectoTIModel.Store.Comentarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Equipos" EntityType="ProyectoTIModel.Store.Equipos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Miembros" EntityType="ProyectoTIModel.Store.Miembros" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Proyectoes" EntityType="ProyectoTIModel.Store.Proyectoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tareas" EntityType="ProyectoTIModel.Store.Tareas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios" EntityType="ProyectoTIModel.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Valoraciones" EntityType="ProyectoTIModel.Store.Valoraciones" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Asignaciones" EntityType="ProyectoTIModel.Store.Asignaciones" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="EquipoMiembro" Association="ProyectoTIModel.Store.EquipoMiembro">
+      <End Role="Equipo" EntitySet="Equipos" />
+      <End Role="Miembro" EntitySet="Miembros" />
+    </AssociationSet>
+    <AssociationSet Name="MiembroAsignacion" Association="ProyectoTIModel.Store.MiembroAsignacion">
+      <End Role="Miembro" EntitySet="Miembros" />
+      <End Role="Asignacion" EntitySet="Asignaciones" />
+    </AssociationSet>
+    <AssociationSet Name="TareaAsignacion" Association="ProyectoTIModel.Store.TareaAsignacion">
+      <End Role="Tarea" EntitySet="Tareas" />
+      <End Role="Asignacion" EntitySet="Asignaciones" />
+    </AssociationSet>
+    <AssociationSet Name="ProyectoTarea" Association="ProyectoTIModel.Store.ProyectoTarea">
+      <End Role="Proyecto" EntitySet="Proyectoes" />
+      <End Role="Tarea" EntitySet="Tareas" />
+    </AssociationSet>
+    <AssociationSet Name="TareaValoracion" Association="ProyectoTIModel.Store.TareaValoracion">
+      <End Role="Tarea" EntitySet="Tareas" />
+      <End Role="Valoracion" EntitySet="Valoraciones" />
+    </AssociationSet>
+    <AssociationSet Name="TareaComentario" Association="ProyectoTIModel.Store.TareaComentario">
+      <End Role="Tarea" EntitySet="Tareas" />
+      <End Role="Comentario" EntitySet="Comentarios" />
+    </AssociationSet>
+    <AssociationSet Name="UsuarioValoracion" Association="ProyectoTIModel.Store.UsuarioValoracion">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Valoracion" EntitySet="Valoraciones" />
+    </AssociationSet>
+    <AssociationSet Name="UsuarioComentario" Association="ProyectoTIModel.Store.UsuarioComentario">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Comentario" EntitySet="Comentarios" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Comentarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Texto" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Fecha" Type="datetime" Nullable="true" />
+    <Property Name="TareaId" Type="int" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Equipos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Miembros">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Apellido" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Cargo" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="EquipoId" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proyectoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FechaInicio" Type="datetime" Nullable="true" />
+    <Property Name="FechaFinalizacion" Type="datetime" Nullable="true" />
+    <Property Name="Estado" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Presupuesto" Type="decimal" Nullable="true" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Tareas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="FechaInicio" Type="datetime" Nullable="true" />
+    <Property Name="FechaFinalizacion" Type="datetime" Nullable="true" />
+    <Property Name="Estado" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="ProyectoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="NombreUsuario" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Contraseña" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="Roles" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Valoraciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Puntuacion" Type="int" Nullable="true" />
+    <Property Name="TareaId" Type="int" Nullable="false" />
+    <Property Name="UsuarioId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asignaciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MiembroId" Type="int" Nullable="false" />
+    <Property Name="TareaId" Type="int" Nullable="false" />
+    <Property Name="Rol" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fecha" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="EquipoMiembro">
+    <End Role="Equipo" Type="ProyectoTIModel.Store.Equipos" Multiplicity="1" />
+    <End Role="Miembro" Type="ProyectoTIModel.Store.Miembros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Miembro">
+        <PropertyRef Name="EquipoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MiembroAsignacion">
+    <End Role="Miembro" Type="ProyectoTIModel.Store.Miembros" Multiplicity="1" />
+    <End Role="Asignacion" Type="ProyectoTIModel.Store.Asignaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Miembro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Asignacion">
+        <PropertyRef Name="MiembroId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TareaAsignacion">
+    <End Role="Tarea" Type="ProyectoTIModel.Store.Tareas" Multiplicity="1" />
+    <End Role="Asignacion" Type="ProyectoTIModel.Store.Asignaciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarea">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Asignacion">
+        <PropertyRef Name="TareaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProyectoTarea">
+    <End Role="Proyecto" Type="ProyectoTIModel.Store.Proyectoes" Multiplicity="1" />
+    <End Role="Tarea" Type="ProyectoTIModel.Store.Tareas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proyecto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tarea">
+        <PropertyRef Name="ProyectoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TareaValoracion">
+    <End Role="Tarea" Type="ProyectoTIModel.Store.Tareas" Multiplicity="1" />
+    <End Role="Valoracion" Type="ProyectoTIModel.Store.Valoraciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarea">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Valoracion">
+        <PropertyRef Name="TareaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TareaComentario">
+    <End Role="Tarea" Type="ProyectoTIModel.Store.Tareas" Multiplicity="1" />
+    <End Role="Comentario" Type="ProyectoTIModel.Store.Comentarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarea">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comentario">
+        <PropertyRef Name="TareaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioValoracion">
+    <End Role="Usuario" Type="ProyectoTIModel.Store.Usuarios" Multiplicity="1" />
+    <End Role="Valoracion" Type="ProyectoTIModel.Store.Valoraciones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Valoracion">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsuarioComentario">
+    <End Role="Usuario" Type="ProyectoTIModel.Store.Usuarios" Multiplicity="1" />
+    <End Role="Comentario" Type="ProyectoTIModel.Store.Comentarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comentario">
+        <PropertyRef Name="UsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ProyectoTIModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ProyectoTIModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comentarios" EntityType="ProyectoTIModel.Comentario" />
+          <EntitySet Name="Equipos" EntityType="ProyectoTIModel.Equipo" />
+          <EntitySet Name="Miembros" EntityType="ProyectoTIModel.Miembro" />
+          <EntitySet Name="Proyectoes" EntityType="ProyectoTIModel.Proyecto" />
+          <EntitySet Name="Tareas" EntityType="ProyectoTIModel.Tarea" />
+          <EntitySet Name="Usuarios" EntityType="ProyectoTIModel.Usuario" />
+          <EntitySet Name="Valoraciones" EntityType="ProyectoTIModel.Valoracion" />
+          <EntitySet Name="Asignaciones" EntityType="ProyectoTIModel.Asignacion" />
+          <AssociationSet Name="EquipoMiembro" Association="ProyectoTIModel.EquipoMiembro">
+            <End Role="Equipo" EntitySet="Equipos" />
+            <End Role="Miembro" EntitySet="Miembros" />
+          </AssociationSet>
+          <AssociationSet Name="MiembroAsignacion" Association="ProyectoTIModel.MiembroAsignacion">
+            <End Role="Miembro" EntitySet="Miembros" />
+            <End Role="Asignacion" EntitySet="Asignaciones" />
+          </AssociationSet>
+          <AssociationSet Name="TareaAsignacion" Association="ProyectoTIModel.TareaAsignacion">
+            <End Role="Tarea" EntitySet="Tareas" />
+            <End Role="Asignacion" EntitySet="Asignaciones" />
+          </AssociationSet>
+          <AssociationSet Name="ProyectoTarea" Association="ProyectoTIModel.ProyectoTarea">
+            <End Role="Proyecto" EntitySet="Proyectoes" />
+            <End Role="Tarea" EntitySet="Tareas" />
+          </AssociationSet>
+          <AssociationSet Name="TareaValoracion" Association="ProyectoTIModel.TareaValoracion">
+            <End Role="Tarea" EntitySet="Tareas" />
+            <End Role="Valoracion" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="TareaComentario" Association="ProyectoTIModel.TareaComentario">
+            <End Role="Tarea" EntitySet="Tareas" />
+            <End Role="Comentario" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="UsuarioValoracion" Association="ProyectoTIModel.UsuarioValoracion">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Valoracion" EntitySet="Valoraciones" />
+          </AssociationSet>
+          <AssociationSet Name="UsuarioComentario" Association="ProyectoTIModel.UsuarioComentario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Comentario" EntitySet="Comentarios" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Texto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tarea" Relationship="ProyectoTIModel.TareaComentario" FromRole="Comentario" ToRole="Tarea" />
+          <Property Name="TareaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="ProyectoTIModel.UsuarioComentario" FromRole="Comentario" ToRole="Usuario" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Miembros" Relationship="ProyectoTIModel.EquipoMiembro" FromRole="Equipo" ToRole="Miembro" />
+        </EntityType>
+        <EntityType Name="Miembro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Equipo" Relationship="ProyectoTIModel.EquipoMiembro" FromRole="Miembro" ToRole="Equipo" />
+          <Property Name="EquipoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asignaciones" Relationship="ProyectoTIModel.MiembroAsignacion" FromRole="Miembro" ToRole="Asignacion" />
+          <Property Name="Email" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proyecto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaInicio" Type="DateTime" Precision="0" />
+          <Property Name="FechaFinalizacion" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Presupuesto" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Tareas" Relationship="ProyectoTIModel.ProyectoTarea" FromRole="Proyecto" ToRole="Tarea" />
+        </EntityType>
+        <EntityType Name="Tarea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FechaInicio" Type="DateTime" Precision="0" />
+          <Property Name="FechaFinalizacion" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Asignaciones" Relationship="ProyectoTIModel.TareaAsignacion" FromRole="Tarea" ToRole="Asignacion" />
+          <NavigationProperty Name="Proyecto" Relationship="ProyectoTIModel.ProyectoTarea" FromRole="Tarea" ToRole="Proyecto" />
+          <Property Name="ProyectoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Valoraciones" Relationship="ProyectoTIModel.TareaValoracion" FromRole="Tarea" ToRole="Valoracion" />
+          <NavigationProperty Name="Comentarios" Relationship="ProyectoTIModel.TareaComentario" FromRole="Tarea" ToRole="Comentario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Contraseña" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Roles" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Valoraciones" Relationship="ProyectoTIModel.UsuarioValoracion" FromRole="Usuario" ToRole="Valoracion" />
+          <NavigationProperty Name="Comentarioa" Relationship="ProyectoTIModel.UsuarioComentario" FromRole="Usuario" ToRole="Comentario" />
+          <Property Name="Email" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Valoracion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Puntuacion" Type="Int32" />
+          <NavigationProperty Name="Tarea" Relationship="ProyectoTIModel.TareaValoracion" FromRole="Valoracion" ToRole="Tarea" />
+          <Property Name="TareaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="ProyectoTIModel.UsuarioValoracion" FromRole="Valoracion" ToRole="Usuario" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Asignacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Miembro" Relationship="ProyectoTIModel.MiembroAsignacion" FromRole="Asignacion" ToRole="Miembro" />
+          <Property Name="MiembroId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tarea" Relationship="ProyectoTIModel.TareaAsignacion" FromRole="Asignacion" ToRole="Tarea" />
+          <Property Name="TareaId" Type="Int32" Nullable="false" />
+          <Property Name="Rol" Type="String" Nullable="false" />
+          <Property Name="Fecha" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="EquipoMiembro">
+          <End Type="ProyectoTIModel.Equipo" Role="Equipo" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Miembro" Role="Miembro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Miembro">
+              <PropertyRef Name="EquipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MiembroAsignacion">
+          <End Type="ProyectoTIModel.Miembro" Role="Miembro" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Asignacion" Role="Asignacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miembro">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Asignacion">
+              <PropertyRef Name="MiembroId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TareaAsignacion">
+          <End Type="ProyectoTIModel.Tarea" Role="Tarea" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Asignacion" Role="Asignacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Asignacion">
+              <PropertyRef Name="TareaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProyectoTarea">
+          <End Type="ProyectoTIModel.Proyecto" Role="Proyecto" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Tarea" Role="Tarea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proyecto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tarea">
+              <PropertyRef Name="ProyectoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TareaValoracion">
+          <End Type="ProyectoTIModel.Tarea" Role="Tarea" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Valoracion" Role="Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="TareaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TareaComentario">
+          <End Type="ProyectoTIModel.Tarea" Role="Tarea" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Comentario" Role="Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarea">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="TareaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuarioValoracion">
+          <End Type="ProyectoTIModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Valoracion" Role="Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsuarioComentario">
+          <End Type="ProyectoTIModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ProyectoTIModel.Comentario" Role="Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comentario">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProyectoTIModelStoreContainer" CdmEntityContainer="ProyectoTIModelContainer">
+    <EntitySetMapping Name="Comentarios">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Comentario)">
+        <MappingFragment StoreEntitySet="Comentarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="TareaId" ColumnName="TareaId" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipos">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Equipo)">
+        <MappingFragment StoreEntitySet="Equipos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Miembros">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Miembro)">
+        <MappingFragment StoreEntitySet="Miembros">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+          <ScalarProperty Name="EquipoId" ColumnName="EquipoId" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proyectoes">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Proyecto)">
+        <MappingFragment StoreEntitySet="Proyectoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Presupuesto" ColumnName="Presupuesto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tareas">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Tarea)">
+        <MappingFragment StoreEntitySet="Tareas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+          <ScalarProperty Name="FechaFinalizacion" ColumnName="FechaFinalizacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="ProyectoId" ColumnName="ProyectoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Usuario)">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Valoraciones">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Valoracion)">
+        <MappingFragment StoreEntitySet="Valoraciones">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Puntuacion" ColumnName="Puntuacion" />
+          <ScalarProperty Name="TareaId" ColumnName="TareaId" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Asignaciones">
+      <EntityTypeMapping TypeName="IsTypeOf(ProyectoTIModel.Asignacion)">
+        <MappingFragment StoreEntitySet="Asignaciones">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MiembroId" ColumnName="MiembroId" />
+          <ScalarProperty Name="TareaId" ColumnName="TareaId" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
