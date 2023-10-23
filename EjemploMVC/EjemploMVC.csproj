@@ -170,9 +170,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AsignacionsController.cs" />
+    <Compile Include="Controllers\ComentariosController.cs" />
     <Compile Include="Controllers\EquipoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MiembroesController.cs" />
+    <Compile Include="Controllers\ProyectoesController.cs" />
+    <Compile Include="Controllers\TareasController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\ValoracionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,6 +307,41 @@
     <Content Include="Views\Equipoes\Details.cshtml" />
     <Content Include="Views\Equipoes\Edit.cshtml" />
     <Content Include="Views\Equipoes\Index.cshtml" />
+    <Content Include="Views\Proyectoes\Create.cshtml" />
+    <Content Include="Views\Proyectoes\Delete.cshtml" />
+    <Content Include="Views\Proyectoes\Details.cshtml" />
+    <Content Include="Views\Proyectoes\Edit.cshtml" />
+    <Content Include="Views\Proyectoes\Index.cshtml" />
+    <Content Include="Views\Miembroes\Create.cshtml" />
+    <Content Include="Views\Miembroes\Delete.cshtml" />
+    <Content Include="Views\Miembroes\Details.cshtml" />
+    <Content Include="Views\Miembroes\Edit.cshtml" />
+    <Content Include="Views\Miembroes\Index.cshtml" />
+    <Content Include="Views\Asignacions\Create.cshtml" />
+    <Content Include="Views\Asignacions\Delete.cshtml" />
+    <Content Include="Views\Asignacions\Details.cshtml" />
+    <Content Include="Views\Asignacions\Edit.cshtml" />
+    <Content Include="Views\Asignacions\Index.cshtml" />
+    <Content Include="Views\Tareas\Create.cshtml" />
+    <Content Include="Views\Tareas\Delete.cshtml" />
+    <Content Include="Views\Tareas\Details.cshtml" />
+    <Content Include="Views\Tareas\Edit.cshtml" />
+    <Content Include="Views\Tareas\Index.cshtml" />
+    <Content Include="Views\Valoracions\Create.cshtml" />
+    <Content Include="Views\Valoracions\Delete.cshtml" />
+    <Content Include="Views\Valoracions\Details.cshtml" />
+    <Content Include="Views\Valoracions\Edit.cshtml" />
+    <Content Include="Views\Valoracions\Index.cshtml" />
+    <Content Include="Views\Comentarios\Create.cshtml" />
+    <Content Include="Views\Comentarios\Delete.cshtml" />
+    <Content Include="Views\Comentarios\Details.cshtml" />
+    <Content Include="Views\Comentarios\Edit.cshtml" />
+    <Content Include="Views\Comentarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
